@@ -10,7 +10,9 @@
   "author": "Deepak Ramalingam",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.18.1"
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "socket.io": "^4.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.19.1",
