@@ -1,32 +1,22 @@
 import express from 'express';
-import http from 'http';
 import cors from 'cors';
-import { Server } from 'socket.io';
+import bodyParser from 'body-parser';
+import socket from './socket/socket';
+import ExampleController from './controller/example';
+import { specs, swaggerUI } from './api-docs/api-docs';
 
+// create express application
 const app = express();
-app.use(cors({
-  origin: 'http://localhost:3000',
-}));
 
-const server = http.createServer(app);
+// configure server
+app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(bodyParser.json());
 
-const io = new Server(server, {
-  cors: {
-    origin: 'http://localhost:3000',
-    methods: ['GET', 'POST'],
-  },
-});
+// routes
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
+app.use(ExampleController);
 
-const port = process.env.port || 8080;
-
-app.get('/', (req, res) => {
-  res.json({ hello: 'world' });
-});
-
-io.on('connection', (socket) => {
-  console.log('User connected to web socket: ', socket);
-});
-
-server.listen(port, () => {
-  console.log(`App listening on port ${port}`);
-});
+// create web socket server
+const server = app.listen(process.env.port || 8080);
+socket.createServer(server);
+console.log(`App listening on port ${server.address().port}`);
