@@ -28,7 +28,6 @@ var options = {
   mode: process.env.NODE_ENV || 'development',
   entry: {
     server: path.join(__dirname, 'src', 'server.js'),
-    example: path.join(__dirname, 'src', 'controller', 'example.js'),
   },
   output: {
     globalObject: 'this',
@@ -37,30 +36,6 @@ var options = {
   },
   module: {
     rules: [
-      // {
-      //     // look for .css or .scss files
-      //     test: /\.(css|scss)$/,
-      //     // in the `src` directory
-      //     use: [
-      //         {
-      //             loader: 'style-loader',
-      //         },
-      //         {
-      //             loader: 'css-loader',
-      //         },
-      //         {
-      //             loader: 'sass-loader',
-      //             options: {
-      //                 sourceMap: true,
-      //             },
-      //         },
-      //     ],
-      // },
-      // {
-      //     test: new RegExp('.(' + fileExtensions.join('|') + ')$'),
-      //     loader: 'file-loader?name=[name].[ext]',
-      //     exclude: /node_modules/,
-      // },
       {
         test: /\.html$/,
         loader: 'html-loader',

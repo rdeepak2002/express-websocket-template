@@ -1,20 +1,12 @@
 import express from 'express';
-import cors from 'cors';
-import bodyParser from 'body-parser';
 import socket from './socket/socket';
-import ExampleController from './controller/example';
-import { specs, swaggerUI } from './api-docs/api-docs';
+import AuthController from './controller/auth';
 
 // create express application
 const app = express();
 
-// configure server
-app.use(cors({ origin: 'http://localhost:3000' }));
-app.use(bodyParser.json());
-
 // routes
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
-app.use(ExampleController);
+app.use(AuthController);
 
 // create web socket server
 const server = app.listen(process.env.port || 8080);
