@@ -1,15 +1,27 @@
 import { Server } from 'socket.io';
 
+/**
+ * Create a web socket server clients can connect to
+ * @param {object} httpServer http server to attach socket server to
+ */
 const createServer = (httpServer) => {
   const io = new Server(httpServer, {
     cors: {
-      origin: 'http://localhost:3000',
+      origin: '*',
       methods: ['GET', 'POST'],
     },
   });
 
-  io.on('connection', (socket) => {
-    console.log('User connected to web socket: ', socket);
+  io.on('connection', (client) => {
+    console.log('client connected:', client.id);
+
+    client.on('disconnect', () => {
+      console.log('client disconnected:', client.id);
+    });
+
+    client.on('test-channel', (data) => {
+      console.log('received socket data from client:', JSON.stringify(data));
+    });
   });
 };
 

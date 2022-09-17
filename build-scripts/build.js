@@ -1,8 +1,7 @@
 process.env.BABEL_ENV = "production";
 process.env.NODE_ENV = "production";
 
-var webpack = require("webpack"),
-  config = require("../webpack.config");
+var webpack = require("webpack"), config = require("../webpack.config");
 
 delete config.chromeExtension;
 
